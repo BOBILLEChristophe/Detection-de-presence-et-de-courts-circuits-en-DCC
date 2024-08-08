@@ -3,7 +3,7 @@
   Détection de présence et courts-circuits pour ATtiny44 (84)
 
   © Christophe BOBILLE 04/24 pour locoduino (www.locoduino.org)
-  v 0.4
+  v 0.5
 
   Datasheet :
   https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7701_Automotive-Microcontrollers-ATtiny24-44-84_Datasheet.pdf
@@ -87,13 +87,11 @@ void loop() {
   sample = sample >> 2;
 
 
-  if (sample < seuilOcc) {
+if (sample < seuilOcc) {
     PORTA &= ~(1 << PA2);  // Signal occupation
-  }
-
-  if (sample >= seuilOcc) {
-    PORTA |= (1 << PA2);  // Signal occupation
-  }
+} else {
+    PORTA |= (1 << PA2);   // Signal occupation
+}
 
   if (sample >= seuilCc) {
     PORTB &= ~(1 << PB2);  // Relais
